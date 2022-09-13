@@ -21,6 +21,7 @@ model User {
 model Category {
   id        Int @id @default(autoincrement())
   name      String @unique
+  tests     Test[]
 
   @@map("categories") 
 }
@@ -65,7 +66,8 @@ model TeacherDiscipline {
 model Test {
   id                  Int @id @default(autoincrement())
   name                String   
-  pdfUrl              String   
+  pdfUrl              String
+  category            Category @relation(fields: [categoryId], references: [id])   
   categoryId          Int
   teacherDiscipline   TeacherDiscipline @relation(fields: [teacherDisciplineId], references: [id])
   teacherDisciplineId Int
