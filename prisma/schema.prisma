@@ -24,3 +24,10 @@ model Category {
 
   @@map("categories") 
 }
+
+model Teacher {
+  id        Int @id @default(autoincrement())
+  name      String @unique
+
+  @@map("teachers") 
+}
