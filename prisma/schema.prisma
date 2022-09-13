@@ -57,6 +57,7 @@ model TeacherDiscipline {
   teacherId      Int
   discipline     Discipline @relation(fields: [disciplineId], references: [id])  
   disciplineId   Int
+  tests          Test[]
 
   @@map("teachersDisciplines") 
 }
@@ -66,6 +67,7 @@ model Test {
   name                String   
   pdfUrl              String   
   categoryId          Int
+  teacherDiscipline   TeacherDiscipline @relation(fields: [teacherDisciplineId], references: [id])
   teacherDisciplineId Int
 
   @@map("tests") 
