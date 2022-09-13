@@ -48,3 +48,11 @@ model Discipline {
 
   @@map("disciplines") 
 }
+
+model TeacherDiscipline {
+  id             Int @id @default(autoincrement())
+  teacherId      Int 
+  disciplineId   Int
+
+  @@map("teachersDisciplines") 
+}
