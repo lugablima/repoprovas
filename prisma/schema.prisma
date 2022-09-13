@@ -60,3 +60,13 @@ model TeacherDiscipline {
 
   @@map("teachersDisciplines") 
 }
+
+model Test {
+  id                  Int @id @default(autoincrement())
+  name                String   
+  pdfUrl              String   
+  categoryId          Int
+  teacherDisciplineId Int
+
+  @@map("tests") 
+}
