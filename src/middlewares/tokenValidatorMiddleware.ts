@@ -1,6 +1,9 @@
+import dotenv from "dotenv";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import * as errorHandlingUtils from "../utils/errorHandlingUtils";
+
+dotenv.config();
 
 export default function validateToken(req: Request, res: Response, next: NextFunction) {
 	const authorization: string | undefined = req.header("Authorization");
