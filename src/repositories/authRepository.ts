@@ -1,5 +1,5 @@
 import { TUser, InsertUser } from "../types/authTypes";
-import prisma from "../config/prismaClient";
+import prisma from "../config/database";
 
 export async function findByEmail(email: string): Promise<TUser | null> {
 	const result: TUser | null = await prisma.user.findUnique({ where: { email } });

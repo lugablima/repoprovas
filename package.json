@@ -9,6 +9,9 @@
     "build": "npx tsc && npx prisma generate && npx prisma migrate deploy",
     "test": "jest --no-cache"
   },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
