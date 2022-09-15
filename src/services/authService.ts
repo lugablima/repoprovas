@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { TUser, InsertUser, UserToken } from "../types/authTypes";
+import { TUser, SignUpSchema, InsertUser, UserToken } from "../types/authTypes";
 import * as authRepository from "../repositories/authRepository";
 import * as errorHandlingUtils from "../utils/errorHandlingUtils";
 
@@ -8,12 +8,6 @@ async function findUserByEmail(email: string) {
 	const user: TUser | null = await authRepository.findByEmail(email);
 
 	return user;
-}
-
-function validatePasswordFormat(password: string) {
-	if (password.length < 10) {
-		throw errorHandlingUtils.badRequest("Password must be at least 10 characters long!");
-	}
 }
 
 function encryptPassword(password: string): string {
@@ -38,7 +32,7 @@ function generateToken(userId: number): string {
 	return token;
 }
 
-export async function signUp(userData: InsertUser) {
+export async function signUp(userData: SignUpSchema) {
 	const { email, password } = userData;
 
 	const user: TUser | null = await findUserByEmail(email);
@@ -47,7 +41,6 @@ export async function signUp(userData: InsertUser) {
 		throw errorHandlingUtils.conflict("This email is already registered!");
 	}
 
-	validatePasswordFormat(password);
 	const encryptedPassword: string = encryptPassword(password);
 
 	await authRepository.insert({ email, password: encryptedPassword });
@@ -62,7 +55,6 @@ export async function signIn(userData: InsertUser) {
 		throw errorHandlingUtils.unauthorized("Invalid email or password!");
 	}
 
-	validatePasswordFormat(password);
 	validatePassword(password, user.password);
 
 	const token: UserToken = {
