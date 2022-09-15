@@ -24,7 +24,12 @@ function validatePassword(password: string, encryptedPassword: string) {
 }
 
 function generateToken(userId: number): string {
-	const JWT_SECRET: string = process.env.JWT_SECRET || "secret";
+	const { JWT_SECRET } = process.env as { JWT_SECRET: string | undefined };
+
+	if (!JWT_SECRET) {
+		throw errorHandlingUtils.internalServer("JWT_SECRET environment variable not provided!");
+	}
+
 	const TIME_15_DAYS_IN_SECONDS: number = 60 * 60 * 24 * 15;
 
 	const token: string = jwt.sign({ userId }, JWT_SECRET, { expiresIn: TIME_15_DAYS_IN_SECONDS });
