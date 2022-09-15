@@ -7,7 +7,7 @@
     "start": "node ./dist/server.js",
     "dev": "nodemon ./src/server.ts",
     "build": "npx tsc && npx prisma generate && npx prisma migrate deploy",
-    "test": "jest --no-cache"
+    "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test prisma db seed && dotenv -e .env.test jest --no-cache"
   },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"
@@ -20,6 +20,7 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
+    "dotenv-cli": "^6.0.0",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "joi": "^17.6.0",
