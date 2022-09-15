@@ -4,6 +4,8 @@ export type TUser = User;
 
 export type InsertUser = Omit<User, "id">;
 
+export type SignUpSchema = InsertUser & { repeatPassword: string };
+
 export interface UserToken {
 	token: string;
 }

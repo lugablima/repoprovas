@@ -1,8 +1,13 @@
-import joi, { ObjectSchema } from "joi";
+import joi from "joi";
+import { SignUpSchema, InsertUser } from "../types/authTypes";
 
-const userSchema: ObjectSchema = joi.object({
+export const signUpSchema = joi.object<SignUpSchema>({
 	email: joi.string().email().required(),
-	password: joi.string().min(10).trim().required(),
+	password: joi.string().trim().required(),
+	repeatPassword: joi.string().trim().required(),
 });
 
-export default userSchema;
+export const signInSchema = joi.object<InsertUser>({
+	email: joi.string().email().required(),
+	password: joi.string().trim().required(),
+});
