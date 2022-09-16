@@ -4,10 +4,13 @@
   "description": "A system for sharing tests between students",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only --exit-child --ignore-watch node_modules ./src/index.ts",
+    "start": "node ./dist/server.js",
+    "dev": "nodemon ./src/server.ts",
     "build": "npx tsc && npx prisma generate && npx prisma migrate deploy",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test prisma db seed && dotenv -e .env.test jest --no-cache"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -17,17 +20,21 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
+    "dotenv-cli": "^6.0.0",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/jest": "^29.0.2",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.7.17",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "eslint": "^8.23.1",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -35,9 +42,13 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.0.3",
+    "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "prisma": "^4.3.1",
-    "ts-node-dev": "^2.0.0",
+    "supertest": "^6.2.4",
+    "ts-jest": "^29.0.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.3"
   }
 }
