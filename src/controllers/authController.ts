@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { SignUpSchema, InsertUser, UserToken } from "../types/authTypes";
+import { SignUpUser, InsertUser, UserToken } from "../types/authTypes";
 import * as authService from "../services/authService";
 
 export async function signUp(req: Request, res: Response) {
-	const userData: SignUpSchema = req.body;
+	const userData: SignUpUser = req.body;
 
 	await authService.signUp(userData);
 

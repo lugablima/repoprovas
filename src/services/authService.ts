@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { TUser, SignUpSchema, InsertUser, UserToken } from "../types/authTypes";
+import { TUser, SignUpUser, InsertUser, UserToken } from "../types/authTypes";
 import * as authRepository from "../repositories/authRepository";
 import * as errorHandlingUtils from "../utils/errorHandlingUtils";
 
@@ -40,7 +40,7 @@ function generateToken(userId: number): string {
 	return token;
 }
 
-export async function signUp(userData: SignUpSchema) {
+export async function signUp(userData: SignUpUser) {
 	const { email, password } = userData;
 
 	const user: TUser | null = await findUserByEmail(email);
