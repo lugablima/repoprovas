@@ -1,5 +1,5 @@
 import { Category, Discipline, Teacher, TeacherDiscipline } from "@prisma/client";
-import { TestPayload } from "../types/testsTypes";
+import { TestPayload, TestData } from "../types/testsTypes";
 import * as categoryRepository from "../repositories/categoryRepository";
 import * as disciplineRepository from "../repositories/disciplineRepository";
 import * as teacherRepository from "../repositories/teacherRepository";
@@ -48,5 +48,12 @@ export async function create(testData: TestPayload) {
 
 	const teacherDiscipline: TeacherDiscipline = await findTeacherDisciplineOrFail(disciplineName, teacherName);
 
-	await testsRepository.insert({ name, pdfUrl, categoryId: category.id, teacherDisciplineId: teacherDiscipline.id });
+	const test: TestData = await testsRepository.insert({
+		name,
+		pdfUrl,
+		categoryId: category.id,
+		teacherDisciplineId: teacherDiscipline.id,
+	});
+
+	return test;
 }
