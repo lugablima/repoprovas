@@ -60,3 +60,5 @@ export async function findAllTestsGroupedByDiscipline() {
 
 	return result;
 }
+
+export async function findAllTestsGroupedByTeacher() {}

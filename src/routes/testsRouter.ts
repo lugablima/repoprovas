@@ -7,5 +7,6 @@ const testsRouter: Router = Router();
 
 testsRouter.post("/tests", validateSchema(testSchema), testsController.create);
 testsRouter.get("/disciplines", testsController.getAllTestsByDisciplines);
+testsRouter.get("/teachers", testsController.getAllTestsByTeachers);
 
 export default testsRouter;

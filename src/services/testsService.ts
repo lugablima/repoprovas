@@ -58,7 +58,13 @@ export async function create(testData: TestPayload) {
 }
 
 export async function getAllTestsByDisciplines() {
-	const testsGroupedByTerm = await testsRepository.findAllTestsGroupedByDiscipline();
+	const testsGroupedByDiscipline = await testsRepository.findAllTestsGroupedByDiscipline();
 
-	return testsGroupedByTerm;
+	return testsGroupedByDiscipline;
+}
+
+export async function getAllTestsByTeachers() {
+	const testsGroupedByTeacher = await testsRepository.findAllTestsGroupedByTeacher();
+
+	return testsGroupedByTeacher;
 }
