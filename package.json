@@ -4,7 +4,7 @@
   "description": "A system for sharing tests between students",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/server.js",
+    "start": "node ./dist/src/server.js",
     "dev": "nodemon ./src/server.ts",
     "build": "npx tsc && npx prisma generate && npx prisma migrate deploy",
     "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test prisma db seed && dotenv -e .env.test jest -i --no-cache --detectOpenHandles"
