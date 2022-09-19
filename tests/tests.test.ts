@@ -27,8 +27,6 @@ describe("POST /tests", () => {
 			.send(test)
 			.set({ Authorization: `Bearer ${token}` });
 
-		// const { id: testId } = result.body as { id: number };
-
 		const testCreated: TestData | null = await prisma.test.findFirst({ where: result.body });
 
 		expect(result.status).toBe(201);
@@ -39,7 +37,9 @@ describe("POST /tests", () => {
 	it("Should answer with status 422 when payload information is in wrong format", async () => {
 		const token: string = await tokenFactory();
 
-		const test: Object = {};
+		const test: object = {
+			anyKey: "any value",
+		};
 
 		const result = await agent
 			.post("/tests")
@@ -150,5 +150,119 @@ describe("POST /tests", () => {
 			.set({ Authorization: `Bearer ${token}` });
 
 		expect(result.status).toBe(404);
+	});
+});
+
+describe("GET /tests/disciplines", () => {
+	it("Should answer with status 200 and in array format", async () => {
+		const token: string = await tokenFactory();
+
+		const test: TestPayload = testFactory();
+
+		await agent
+			.post("/tests")
+			.send(test)
+			.set({ Authorization: `Bearer ${token}` });
+
+		const result = await agent
+			.get("/tests/disciplines")
+			.send()
+			.set({ Authorization: `Bearer ${token}` });
+
+		expect(result.status).toBe(200);
+		expect(result.body).toBeInstanceOf(Array);
+	});
+
+	it("Should answer with status 400 when Authorization header is not sent", async () => {
+		const token: string = await tokenFactory();
+
+		const result = await agent
+			.get("/tests/disciplines")
+			.send()
+			.set({ AnotherHeader: `Bearer ${token}` });
+
+		expect(result.status).toBe(400);
+	});
+
+	it("Should answer with status 400 when Bearer authentication type is not sent", async () => {
+		const token: string = await tokenFactory();
+
+		const result = await agent.get("/tests/disciplines").send().set({ Authorization: token });
+
+		expect(result.status).toBe(400);
+	});
+
+	it("Should answer with status 400 when token is not sent", async () => {
+		const result = await agent.get("/tests/disciplines").send().set({ Authorization: "Bearer " });
+
+		expect(result.status).toBe(400);
+	});
+
+	it("Should answer with status 401 when token is invalid", async () => {
+		const token: string = "AnyToken";
+
+		const result = await agent
+			.get("/tests/disciplines")
+			.send()
+			.set({ Authorization: `Bearer ${token}` });
+
+		expect(result.status).toBe(401);
+	});
+});
+
+describe("GET /tests/teachers", () => {
+	it("Should answer with status 200 and in array format", async () => {
+		const token: string = await tokenFactory();
+
+		const test: TestPayload = testFactory();
+
+		await agent
+			.post("/tests")
+			.send(test)
+			.set({ Authorization: `Bearer ${token}` });
+
+		const result = await agent
+			.get("/tests/teachers")
+			.send()
+			.set({ Authorization: `Bearer ${token}` });
+
+		expect(result.status).toBe(200);
+		expect(result.body).toBeInstanceOf(Array);
+	});
+
+	it("Should answer with status 400 when Authorization header is not sent", async () => {
+		const token: string = await tokenFactory();
+
+		const result = await agent
+			.get("/tests/teachers")
+			.send()
+			.set({ AnotherHeader: `Bearer ${token}` });
+
+		expect(result.status).toBe(400);
+	});
+
+	it("Should answer with status 400 when Bearer authentication type is not sent", async () => {
+		const token: string = await tokenFactory();
+
+		const result = await agent.get("/tests/teachers").send().set({ Authorization: token });
+
+		expect(result.status).toBe(400);
+	});
+
+	it("Should answer with status 400 when token is not sent", async () => {
+		const result = await agent.get("/tests/teachers").send().set({ Authorization: "Bearer " });
+
+		expect(result.status).toBe(400);
+	});
+
+	it("Should answer with status 401 when token is invalid", async () => {
+		const token: string = "AnyToken";
+
+		const result = await agent
+			.get("/tests/teachers")
+			.send()
+			.set({ Authorization: `Bearer ${token}` });
+
+		expect(result.status).toBe(401);
 	});
 });
