@@ -24,12 +24,12 @@ describe("GET /disciplines", () => {
 		await agent
 			.post("/tests")
 			.send(test)
-			.set({ Authorization: `Bearer ${token}`, Accept: "application/json" });
+			.set({ Authorization: `Bearer ${token}` });
 
 		const result = await agent
 			.get("/disciplines")
 			.send()
-			.set({ Authorization: `Bearer ${token}`, Accept: "application/json" });
+			.set({ Authorization: `Bearer ${token}` });
 
 		expect(result.status).toBe(200);
 		expect(result.body).toBeInstanceOf(Array);

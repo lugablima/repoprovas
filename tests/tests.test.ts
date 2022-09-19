@@ -25,11 +25,11 @@ describe("POST /tests", () => {
 		const result = await agent
 			.post("/tests")
 			.send(test)
-			.set({ Authorization: `Bearer ${token}`, Accept: "application/json" });
+			.set({ Authorization: `Bearer ${token}` });
 
-		const { id: testId } = result.body as { id: number };
+		// const { id: testId } = result.body as { id: number };
 
-		const testCreated: TestData | null = await prisma.test.findUnique({ where: { id: testId } });
+		const testCreated: TestData | null = await prisma.test.findFirst({ where: result.body });
 
 		expect(result.status).toBe(201);
 		expect(result.body).toBeInstanceOf(Object);
@@ -44,7 +44,7 @@ describe("POST /tests", () => {
 		const result = await agent
 			.post("/tests")
 			.send(test)
-			.set({ Authorization: `Bearer ${token}`, Accept: "application/json" });
+			.set({ Authorization: `Bearer ${token}` });
 
 		expect(result.status).toBe(422);
 	});
@@ -57,7 +57,7 @@ describe("POST /tests", () => {
 		const result = await agent
 			.post("/tests")
 			.send(test)
-			.set({ AnotherHeader: `Bearer ${token}`, Accept: "application/json" });
+			.set({ AnotherHeader: `Bearer ${token}` });
 
 		expect(result.status).toBe(400);
 	});
@@ -67,7 +67,7 @@ describe("POST /tests", () => {
 
 		const test: TestPayload = testFactory();
 
-		const result = await agent.post("/tests").send(test).set({ Authorization: token, Accept: "application/json" });
+		const result = await agent.post("/tests").send(test).set({ Authorization: token });
 
 		expect(result.status).toBe(400);
 	});
@@ -75,10 +75,7 @@ describe("POST /tests", () => {
 	it("Should answer with status 400 when token is not sent", async () => {
 		const test: TestPayload = testFactory();
 
-		const result = await agent
-			.post("/tests")
-			.send(test)
-			.set({ Authorization: "Bearer ", Accept: "application/json" });
+		const result = await agent.post("/tests").send(test).set({ Authorization: "Bearer " });
 
 		expect(result.status).toBe(400);
 	});
@@ -90,7 +87,7 @@ describe("POST /tests", () => {
 		const result = await agent
 			.post("/tests")
 			.send(test)
-			.set({ Authorization: `Bearer ${token}`, Accept: "application/json" });
+			.set({ Authorization: `Bearer ${token}` });
 
 		expect(result.status).toBe(401);
 	});
@@ -105,7 +102,7 @@ describe("POST /tests", () => {
 		const result = await agent
 			.post("/tests")
 			.send(test)
-			.set({ Authorization: `Bearer ${token}`, Accept: "application/json" });
+			.set({ Authorization: `Bearer ${token}` });
 
 		expect(result.status).toBe(404);
 	});
@@ -120,7 +117,7 @@ describe("POST /tests", () => {
 		const result = await agent
 			.post("/tests")
 			.send(test)
-			.set({ Authorization: `Bearer ${token}`, Accept: "application/json" });
+			.set({ Authorization: `Bearer ${token}` });
 
 		expect(result.status).toBe(404);
 	});
@@ -135,7 +132,7 @@ describe("POST /tests", () => {
 		const result = await agent
 			.post("/tests")
 			.send(test)
-			.set({ Authorization: `Bearer ${token}`, Accept: "application/json" });
+			.set({ Authorization: `Bearer ${token}` });
 
 		expect(result.status).toBe(404);
 	});
@@ -150,7 +147,7 @@ describe("POST /tests", () => {
 		const result = await agent
 			.post("/tests")
 			.send(test)
-			.set({ Authorization: `Bearer ${token}`, Accept: "application/json" });
+			.set({ Authorization: `Bearer ${token}` });
 
 		expect(result.status).toBe(404);
 	});
