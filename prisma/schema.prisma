@@ -23,9 +23,6 @@ model Category {
   name      String @unique
   tests     Test[]
 
-  disciplines Discipline[]
-  teachers    Teacher[]
-
   @@map("categories") 
 }
 
@@ -34,9 +31,6 @@ model Teacher {
   name                String @unique
   teachersDisciplines TeacherDiscipline[]
   
-  disciplines         Discipline[]
-  categories          Category[]
-
   @@map("teachers") 
 }
 
@@ -54,9 +48,6 @@ model Discipline {
   term                Term @relation(fields: [termId], references: [id])
   termId              Int
   teachersDisciplines TeacherDiscipline[]
-
-  categories Category[]
-  teachers   Teacher[]
 
   @@map("disciplines") 
 }
