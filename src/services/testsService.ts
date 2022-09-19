@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable @typescript-eslint/no-shadow */
 import { Category, Discipline, Teacher, TeacherDiscipline } from "@prisma/client";
 import { TestPayload, TestData } from "../types/testsTypes";
 import * as categoryRepository from "../repositories/categoryRepository";
@@ -37,17 +35,6 @@ async function findTeacherDisciplineOrFail(disciplineName: string, teacherName: 
 
 	return teacherDiscipline;
 }
-
-// function formatTests(term: any) {
-// 	term.disciplines.map((discipline) => {
-// 		discipline.teachersDisciplines.map((teacherDiscipline) => {
-// 			const arrTests = teacherDiscipline.tests.map((test) => {
-// 				return { ...test, categoryName: test.category.name };
-// 			})
-
-// 		})
-// 	})
-// }
 
 export async function create(testData: TestPayload) {
 	const { name, pdfUrl, categoryName, disciplineName, teacherName } = testData;
