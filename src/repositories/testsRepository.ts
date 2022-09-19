@@ -1,5 +1,5 @@
 import prisma from "../config/database";
-import { InsertTest, TestData } from "../types/testsTypes";
+import { InsertTest, TestData, TestsGroupedByDiscipline, TestsGroupedByTeacher } from "../types/testsTypes";
 
 export async function insert(test: InsertTest): Promise<TestData> {
 	const result: TestData = await prisma.test.create({ data: test });
@@ -37,7 +37,7 @@ export async function findAllTestsGroupedByDiscipline() {
 		orderBy: { name: "asc" },
 	});
 
-	const result = terms.map(({ disciplines, ...rest }) => ({
+	const result: TestsGroupedByDiscipline = terms.map(({ disciplines, ...rest }) => ({
 		...rest,
 		disciplines: disciplines.map(({ id, ...rest }) => ({
 			id,
@@ -92,7 +92,7 @@ export async function findAllTestsGroupedByTeacher() {
 		orderBy: { name: "asc" },
 	});
 
-	const result = teachers.map(({ id, name }) => ({
+	const result: TestsGroupedByTeacher = teachers.map(({ id, name }) => ({
 		id,
 		name,
 		categories: categories

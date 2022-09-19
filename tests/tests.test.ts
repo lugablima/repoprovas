@@ -38,7 +38,7 @@ describe("POST /tests", () => {
 		const token: string = await tokenFactory();
 
 		const test: object = {
-			anyKey: "any value",
+			anyKey: faker.lorem.words(),
 		};
 
 		const result = await agent
