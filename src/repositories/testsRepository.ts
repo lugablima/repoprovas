@@ -61,4 +61,54 @@ export async function findAllTestsGroupedByDiscipline() {
 	return result;
 }
 
-export async function findAllTestsGroupedByTeacher() {}
+export async function findAllTestsGroupedByTeacher() {
+	const teachers = await prisma.teacher.findMany({
+		orderBy: { name: "asc" },
+	});
+
+	const categories = await prisma.category.findMany({
+		include: {
+			tests: {
+				select: {
+					id: true,
+					name: true,
+					pdfUrl: true,
+					categoryId: true,
+					teacherDiscipline: {
+						select: {
+							teacherId: true,
+							discipline: {
+								select: {
+									id: true,
+									name: true,
+								},
+							},
+						},
+					},
+				},
+				orderBy: { teacherDiscipline: { discipline: { name: "asc" } } },
+			},
+		},
+		orderBy: { name: "asc" },
+	});
+
+	const result = teachers.map(({ id, name }) => ({
+		id,
+		name,
+		categories: categories
+			.map(({ id: categoriesId, tests, ...rest }) => ({
+				id: categoriesId,
+				...rest,
+				tests: tests
+					.map(({ categoryId, teacherDiscipline: { teacherId, discipline }, ...rest }) => {
+						if (teacherId === id && categoryId === categoriesId) {
+							return { ...rest, discipline };
+						}
+					})
+					.filter((test) => test !== undefined),
+			}))
+			.filter(({ tests }) => tests.length > 0),
+	}));
+
+	return result;
+}
