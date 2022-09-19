@@ -6,7 +6,7 @@ import * as testsController from "../controllers/testsController";
 const testsRouter: Router = Router();
 
 testsRouter.post("/tests", validateSchema(testSchema), testsController.create);
-testsRouter.get("/disciplines", testsController.getAllTestsByDisciplines);
-testsRouter.get("/teachers", testsController.getAllTestsByTeachers);
+testsRouter.get("/tests/disciplines", testsController.getAllTestsByDisciplines);
+testsRouter.get("/tests/teachers", testsController.getAllTestsByTeachers);
 
 export default testsRouter;
