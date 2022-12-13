@@ -1,7 +1,7 @@
 <h1 align = "center"> Repoprovas </h1>
 
 <p align = "center">
-   <img src="https://img.shields.io/badge/author-Lucas_Lima-4dae71?style=flat-square" />
+   <img src="https://img.shields.io/badge/author-Lucas_Gabriel_Lima-4dae71?style=flat-square" />
    <img src="https://img.shields.io/github/languages/count/lugablima/repoprovas?color=4dae71&style=flat-square" />
 </p>
 
@@ -78,7 +78,7 @@ POST /tests
 | :-------------- | :------- | :--------------------------------- |
 | `Authorization` | `string` | **Obrigatório**. Token do usuário. |
 
-`O header Authorization deve ter o seguinte formato: Bearer **token_do_usuário**`
+`O header Authorization deve ter o seguinte formato: Bearer token_do_usuário`
 
 | Body             | Tipo     | Descrição                                                |
 | :--------------- | :------- | :------------------------------------------------------- |
@@ -100,7 +100,7 @@ GET /tests/disciplines
 | :-------------- | :------- | :--------------------------------- |
 | `Authorization` | `string` | **Obrigatório**. Token do usuário. |
 
-`O header Authorization deve ter o seguinte formato: Bearer **token_do_usuário**`
+`O header Authorization deve ter o seguinte formato: Bearer token_do_usuário`
 
 #### Response
 
@@ -151,7 +151,7 @@ GET /tests/teachers
 | :-------------- | :------- | :--------------------------------- |
 | `Authorization` | `string` | **Obrigatório**. Token do usuário. |
 
-`O header Authorization deve ter o seguinte formato: Bearer **token_do_usuário**`
+`O header Authorization deve ter o seguinte formato: Bearer token_do_usuário`
 
 #### Response
 
