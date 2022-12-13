@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./dist/src/server.js",
     "dev": "npx prisma migrate dev && npx prisma db seed && nodemon ./src/server.ts",
-    "build": "npx tsc && npx prisma generate && npx prisma migrate deploy",
+    "build": "npx tsc && npx prisma migrate deploy && npx prisma db seed",
     "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test prisma db seed && dotenv -e .env.test jest --no-cache --runInBand --detectOpenHandles"
   },
   "prisma": {
